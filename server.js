@@ -16,11 +16,12 @@ io.on('connection', function(socket){
     
     socket.on('tellUN', function(user){ 
         player.username =  user.username 
-        console.log('loged in: ',  player.username);      
-        socket.emit('register', {username: player.username});
-        socket.emit('spawn', player);
-        socket.broadcast.emit('spawn', player);
     });
+    
+    console.log('loged in: ',  player.username);      
+    socket.emit('register', {username: player.username});
+    socket.emit('spawn', player);
+    socket.broadcast.emit('spawn', player);
 
     for(var playerID in players){
         if(playerID != thisPlayerID){
