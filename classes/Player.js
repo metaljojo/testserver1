@@ -4,8 +4,7 @@ var shortID = require('shortid');
 
 module.exports = class Player {
     constructor() {
-        this.username = '';
+        this.username = 'admin';
         this.id = shortID.generate();
-        //this.key = ''
     }
 }
