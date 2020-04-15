@@ -24,12 +24,12 @@ io.on('connection', function(socket){
 
     for(var playerID in players){
         if(playerID != thisPlayerID){
-            socket.emit('spawn', player.username);
+            socket.emit('spawn', players[playerID].username);
         }
     }
 
     socket.on('disconnect', function(){
-        console.log( 'loged out: ', player.username);
+        console.log( 'loged out: ', players[thisPlayerID].username);
         delete players[thisPlayerID];
         delete sockets[thisPlayerID];
     });
