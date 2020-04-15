@@ -13,23 +13,20 @@ io.on('connection', function(socket){
     var thisPlayerID = player.id;
     players[thisPlayerID] = player;
     sockets[thisPlayerID] = socket;
-    
-    socket.on('tellUN', function(user){ 
-        player.username =  user.username 
-        console.log('loged in: ',  player.username);      
-        socket.emit('register', {username: player.username});
-        socket.emit('spawn', player);
-        socket.broadcast.emit('spawn', player);
-    });
+
+    //Tell the client that this is our id for the server
+    socket.emit('register', {id: thisPlayerID});
+    socket.emit('spawn', player); //Tell myself I have spawned
+    socket.broadcast.emit('spawn', player); //Tell others I have spawned
 
     for(var playerID in players){
         if(playerID != thisPlayerID){
-            socket.emit('spawn', players[playerID].username);
+            socket.emit('spawn', players[playerID].id);
         }
     }
 
     socket.on('disconnect', function(){
-        console.log( 'loged out: ', players[thisPlayerID].username);
+        console.log( 'loged out: ', thisPlayerID);
         delete players[thisPlayerID];
         delete sockets[thisPlayerID];
     });
